@@ -1,4 +1,5 @@
 ﻿@using Knife.Client.Services.ProductServices
+@implements IDisposable
 @inject HttpClient Http
 @inject IProductService ProductService
 
@@ -39,11 +40,16 @@ else
 @code {
     //private static List<Product> Products = new List<Product>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         //var result = await Http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
         //if(result!=null && result.Data != null)
         //    Products = result.Data;
-        await ProductService.GetProducts();
+        ProductService.CategoryChange += StateHasChanged;
+        //await ProductService.GetProducts();
+    }
+    public void Dispose()
+    {
+        ProductService.CategoryChange -= StateHasChanged;
     }
 }

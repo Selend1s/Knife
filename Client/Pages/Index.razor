@@ -1,5 +1,18 @@
 ﻿@page "/"
+@page "/{categoryUrl}"
+@using Knife.Client.Services.ProductServices
+@inject IProductService ProductService
 
 <PageTitle>Product Items Shop</PageTitle>
 @*<h2>Product Items Shop</h2>*@
 <ProductList />
+
+@code{
+    [Parameter]
+    public string? CategoryUrl { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ProductService.GetProducts(CategoryUrl);
+    }
+}

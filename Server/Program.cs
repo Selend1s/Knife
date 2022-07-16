@@ -1,5 +1,6 @@
 global using Knife.Server.Data;
 global using Microsoft.EntityFrameworkCore;
+using Knife.Server.Services.CategoryService;
 using Knife.Server.Services.ProductService;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -17,6 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
